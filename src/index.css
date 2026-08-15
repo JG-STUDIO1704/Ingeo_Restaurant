@@ -1,0 +1,199 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-obsidian: #0a0a0a;
+  --color-charcoal: #121212;
+  --color-charcoal-light: #1a1a1a;
+  --color-fire: #ea580c;
+  --color-fire-light: #f97316;
+  --color-ember: #dc2626;
+  --color-amber: #f59e0b;
+  --color-gold: #d4af37;
+  --color-chalk: #f9fafb;
+  --color-smoke: #9ca3af;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: #0a0a0a;
+  color: #f9fafb;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(234,88,12,0.5); }
+
+/* ── Keyframes — GPU-only (transform + opacity only) ── */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translate3d(0, 32px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale3d(0.82, 0.82, 1); }
+  to   { opacity: 1; transform: scale3d(1, 1, 1); }
+}
+
+@keyframes ember-rise {
+  0%   { opacity: 0.8; transform: translate3d(0, 0, 0) scale(1); }
+  100% { opacity: 0;   transform: translate3d(0, -110px, 0) scale(0.1); }
+}
+
+@keyframes bounce-y {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%       { transform: translate3d(0, 7px, 0); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(234,88,12,0.3), 0 0 32px rgba(234,88,12,0.1); }
+  50%       { box-shadow: 0 0 28px rgba(234,88,12,0.55), 0 0 56px rgba(234,88,12,0.2); }
+}
+
+@keyframes flame-breathe {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.85; }
+}
+
+@keyframes shimmer-text {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ── Entry animations ────────────────────────────────── */
+.anim-fade-up  { animation: fade-up  0.75s cubic-bezier(0.16,1,0.3,1) both; }
+.anim-fade-in  { animation: fade-in  0.6s  ease both; }
+.anim-scale-in { animation: scale-in 0.5s  cubic-bezier(0.16,1,0.3,1) both; }
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+
+/* ── Ember particles ─────────────────────────────────── */
+.ember {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  animation: ember-rise var(--dur, 2.6s) ease-out var(--del, 0s) infinite;
+}
+
+/* ── Continuous animations ───────────────────────────── */
+.anim-bounce-y   { animation: bounce-y      1.6s ease-in-out infinite; will-change: transform; }
+.anim-flame-glow { animation: flame-breathe 3s   ease-in-out infinite; }
+.anim-flame-slow { animation: flame-breathe 4s   ease-in-out infinite; }
+.glow-fire       { animation: glow-pulse    3s   ease-in-out infinite; }
+
+/* ── Scroll reveal ───────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+              transform 0.75s cubic-bezier(0.16,1,0.3,1);
+  will-change: transform, opacity;
+}
+.reveal.revealed         { opacity: 1; transform: translate3d(0,0,0); }
+.reveal.delay-1          { transition-delay: 0.1s; }
+.reveal.delay-2          { transition-delay: 0.22s; }
+.reveal.delay-3          { transition-delay: 0.34s; }
+.reveal.delay-4          { transition-delay: 0.46s; }
+
+/* ── Typography helpers ──────────────────────────────── */
+.font-serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+.font-sans  { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+
+/* Animated shimmer fire gradient on text */
+.text-gradient-fire {
+  background: linear-gradient(
+    120deg,
+    #f97316 0%, #ea580c 25%, #d4af37 50%, #ea580c 75%, #f97316 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer-text 5s linear infinite;
+}
+
+/* ── Glass surfaces ──────────────────────────────────── */
+.glass-dark {
+  background: rgba(20,20,20,0.82);
+  border: 1px solid rgba(249,115,22,0.13);
+}
+
+.glass-dark-strong {
+  background: rgba(10,10,10,0.94);
+  border: 1px solid rgba(249,115,22,0.15);
+}
+
+/* ── Ember glow shadow ───────────────────────────────── */
+.ember-glow {
+  box-shadow: 0 0 0 1px rgba(234,88,12,0.08),
+              0 8px 32px rgba(0,0,0,0.6),
+              inset 0 0 20px rgba(234,88,12,0.05);
+}
+
+/* ── Dish card 3-D tilt ──────────────────────────────── */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.4s ease;
+  will-change: transform;
+}
+
+/* ── CTA button shine sweep ──────────────────────────── */
+.btn-fire {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-fire::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.45s ease;
+}
+.btn-fire:hover::after { transform: translateX(100%); }
+
+/* ── Nav link underline ──────────────────────────────── */
+.nav-link { position: relative; }
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  height: 1px;
+  width: 0;
+  background: #ea580c;
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after { width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}

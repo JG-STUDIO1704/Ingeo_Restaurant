@@ -1,0 +1,10 @@
+{
+  "description": "Generate professional premium landing pages effortlessly to boost your online presence and attract more customers with customizable, high-quality designs.",
+  "robots": {
+    "index": true
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
